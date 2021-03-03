@@ -1,0 +1,464 @@
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+/* table {
+  border-collapse: collapse;
+} */
+
+html,
+body {
+  /* overflow-y: scroll; */
+  background-color: #031f78;
+  height: 100%;
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+
+.list .layui-layer-title {
+  background-color: #19398b;
+
+}
+
+
+
+
+
+
+.data {
+  width: 100%;
+  text-align: center;
+  height: 60px;
+  background-color: #19398b;
+}
+
+.conter {
+  width: 85%;
+  height: 58px;
+  /* text-align: center; */
+  margin: 15px auto;
+  background-color: #19398b;
+  border-radius: 8px;
+}
+
+
+.conter h1 {
+  font-family: cursive;
+  color: aliceblue;
+  font-size: 20px;
+  float: left;
+  width: 20%;
+  padding-top: 15px;
+  padding-left: 15px;
+  font-weight: bold;
+}
+
+
+
+
+.list .bar7 form {
+  height: 42px;
+}
+
+.list .bar7 input {
+  width: 300px;
+  border-radius: 42px;
+  border: 1px solid #fafbfc;
+  background: #19398b;
+  transition: .3s linear;
+  /* float: right; */
+  margin-right: 25px;
+}
+
+.list .bar7 input:focus {
+  width: 300px;
+}
+
+.list .bar7 button {
+  background: none;
+  top: 18px;
+  right: 37px;
+  width: 20px;
+  cursor: pointer;
+  position: absolute;
+  height: 20px;
+  background-image: url(../img/sousuo.png);
+  background-repeat: no-repeat;
+}
+
+/* .conter .bar7 button:before {
+  content: "Search";
+  font-family: FontAwesome;
+  color: rgb(14, 147, 224);
+} */
+
+.list .search {
+  /* float: right; */
+  width: 340px;
+  position: relative;
+}
+
+.list form {
+  position: relative;
+  width: 350px;
+  margin: 0 auto;
+}
+
+.list input,
+button {
+  border: none;
+  outline: none;
+}
+
+.list input {
+  width: 100%;
+  height: 30px;
+  padding-left: 13px;
+  margin-top: 13px;
+  color: mistyrose;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.conter .bar7 form {
+  height: 42px;
+}
+
+.conter .bar7 input {
+  width: 300px;
+  border-radius: 42px;
+  border: 1px solid #fafbfc;
+  background: #19398b;
+  transition: .3s linear;
+  float: right;
+  margin-right: 25px;
+}
+
+.conter .bar7 input:focus {
+  width: 300px;
+}
+
+.conter .bar7 button {
+  background: none;
+  top: 18px;
+  right: 19px;
+  background-image: url(../img/sousuo.png);
+  background-repeat: no-repeat;
+}
+
+/* .conter .bar7 button:before {
+  content: "Search";
+  font-family: FontAwesome;
+  color: rgb(14, 147, 224);
+} */
+
+.conter .search {
+  float: right;
+  position: relative;
+}
+
+.conter form {
+  position: relative;
+  width: 350px;
+  margin: 0 auto;
+}
+
+.conter input,
+button {
+  border: none;
+  outline: none;
+}
+
+.conter input {
+  width: 100%;
+  height: 30px;
+  padding-left: 13px;
+  margin-top: 13px;
+  color: mistyrose;
+}
+
+.conter button {
+  height: 30px;
+  width: 42px;
+  cursor: pointer;
+  position: absolute;
+}
+
+.file {
+  width: 650px;
+  height: 650px;
+  background-color: #010f4e;
+  border-radius: 8px;
+  border: 3px solid #183789;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.show {
+  width: 1050px;
+  height: 500px;
+  /* background-color: #010f4e; */
+  border-radius: 8px;
+  /* border: 3px solid #183789; */
+  margin: 40px auto;
+  text-align: center;
+}
+
+.show img {
+  width: 100%;
+  height: 80%;
+}
+
+.file img {
+  /* margin-top: 20px; */
+  width: 100%;
+}
+
+.show .layui-btn {
+  margin: 20px auto;
+  background-color: #4e9de2;
+}
+
+.file .layui-btn {
+  display: inline-block;
+  height: 84px;
+  width: 87px;
+  border-radius: 10px;
+  /* line-height: 38px; */
+  padding: 0px;
+  background-color: #4e9de2;
+  color: #fff;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 14px;
+  border: none;
+  border-radius: 63px;
+  cursor: pointer;
+}
+
+.tab-container {
+  width: 85%;
+  height: 550px;
+  margin: 15px auto;
+  background-color: #19398b;
+  border-radius: 8px;
+}
+
+.tab-container .sel {
+  width: 100%;
+  height: 50px;
+  /* background-color: #198b52; */
+  border-radius: 8px;
+}
+
+select {
+  height: 24PX;
+  width: 150px;
+  float: right;
+  color: rgb(170, 207, 238);
+  background-color: azure;
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: 1px solid #8bd1b7;
+  /*很关键：将默认的select选择框样式清除*/
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background: url("../img/xiala.png") no-repeat right 6px center;
+  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+  padding-right: 14px;
+  margin-top: 15px;
+  margin-right: 26px;
+}
+
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand {
+  display: none;
+}
+
+
+.list {
+  width: 97%;
+  /* height: 540px; */
+  /* height: 111%; */
+  /* background-color: #19398b !important; */
+  padding: 12px;
+}
+
+.list .layui-table thead tr {
+  background-color: #172877;
+}
+
+.list .layui-laypage-limits {
+  display: none;
+}
+
+
+.conter .ppt {
+  width: 120px;
+  height: 40px;
+  background-color: rgb(24, 129, 199);
+  border-radius: 8px;
+  float: right;
+  margin-top: 9px;
+  /* color: #fff; */
+}
+
+.echarts {
+  width: 85%;
+  /* height: 58px; */
+  text-align: center;
+  margin: 15px auto;
+  /* background-color: #19398b; */
+  border-radius: 8px;
+}
+
+.echarts .layui-col-xs6 {
+  background-color: rgb(24, 129, 199);
+  font-family: cursive;
+  color: aliceblue;
+  font-weight: bold;
+  /* width: 30.733333%; */
+}
+
+#ech-1,
+#ech-2,
+#ech-3,
+#ech-4,
+#ech-5,
+#ech-6 {
+  background-color: #363636;
+}
+
+.echarts .layui-col-space10>* {
+  padding: 5px;
+  /* margin: 10px 10px -8px 10px; */
+}
+
+.orang {
+  width: 85%;
+  height: 388px;
+  text-align: center;
+  margin: 15px auto;
+  /* background-color: #19398b; */
+  border-radius: 8px;
+}
+
+.orang .layui-col-space10>* {
+  padding: 5px;
+  /* margin: 0px 10px 10px 10px; */
+}
+
+.orang .grid-demo {
+  height: 388px;
+  /* width: 30.733333%; */
+}
+
+.classify1 {
+  width: 85%;
+  height: 238px;
+  /* text-align: center; */
+  margin: 15px auto;
+  background-color: #19398b;
+  border-radius: 8px;
+}
+
+.left-fication {
+  width: 8%;
+  height: 100%;
+  border-radius: 8px 0px 0px 8px;
+  float: left;
+  background-color: cornflowerblue;
+}
+
+.right-fication {
+  width: 92%;
+  height: 100%;
+  overflow-x: auto;
+  float: right;
+  /* border-radius: 8px; */
+
+}
+
+.right-fication ul {
+  width: 100%;
+  /* float: left; */
+  /* background-color: blue; */
+  display: inline-block;
+}
+
+.right-fication ul li {
+  float: left;
+  /* width: 14%; */
+  margin-top: 42px;
+  /* margin-left: 20px; */
+}
+
+::-webkit-scrollbar-track-piece {
+  /* //滚动条凹槽的颜色，还可以设置边框属性 */
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  /* //滚动条的宽度 */
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  /* //滚动条的设置 */
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122, 153, 217)), color-stop(0.72, rgb(73, 125, 189)), color-stop(0.86, rgb(28, 58, 148)));
+  background-clip: padding-box;
+  min-height: 28px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台管理</title>
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="stylesheet" href="../static/css/herder.css">
+  <link rel="stylesheet" href="../static/layui-v2.5.6/layui/css/layui.css">
+  <!-- <script src="../static/fonts/iconfont.js"></script> -->
+  <link rel="stylesheet" href="../static/font/iconfont.css">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <!-- 导航头 -->
+  <script src="../static/js/herder.js"></script>
+
+  <!-- 中间区域 -->
+  <div class="conter">
+    <h1>后台管理-词库管理</h1>
+  </div>
+  <div id="LoveID">
+  </div>
+  <div id="table" class="x-body" style="display: none;">
+
+    <div class="list">
+      <div class="search bar7">
+        <input type="text" placeholder="输入信息" id="input">
+        <button type="submit" id="subit"></button>
+      </div>
+      <table class="table-striped table-bordered table-hover" id="demo" lay-filter="demo"></table>
+    </div>
+  </div>
+  <script src="../static/js/jquery-3.0.0.min.js"></script>
+  <script src="../static/js/basepath.js"></script>
+  <script src="../static/layui-v2.5.6/layui/layui.js"></script>
+  <script src="../static/layui-v2.5.6/layui/layui.all.js"></script>
+  <script type="text/html" id="barDemo">
+    <!-- <a class="layui-btn layui-btn-xs" lay-event="detail">
+      <p>查看</p>
+    </a> -->
+
+  <a class="layui-btn layui-btn-xs" lay-event="del">
+    <p>删除</p>
+  </a>
+  </script>
+  <script>
+    $.ajax({
+      type: "post",
+      url: basepath + "/PublicOpinion/Lexicon/lexicon",
+      // data: "data",
+      dataType: "json",
+      success: function (response) {
+        console.log(response)
+        var loveStr = "";
+        var loveArr = response.list
+        loveArr.forEach(e => {
+          loveStr += ` 
+        <div class="classify1">
+          <div class="left-fication">
+           <h1 style="width: 20%; height: 100%; margin: 20px auto; color: aliceblue; font-weight: bold;font-family: Arial, Helvetica, sans-serif;">
+          ${e.superclass}</h1>
+          </div>
+          <div class="right-fication">
+                 <ul>
+                   <li >
+                      ${e.subclass.map((element, index) => {
+                       return  `<div style="display:inline-block;">
+                        <img src="../static/img/ciku.png" alt="" style="width: 150px; height: 150px;margin-left: 20px;" onclick="ifrm( '${e.superclass}','${element}')">
+                        <p style="padding-left: 66px; margin-top: 10px;color: aliceblue; font-weight: bold;font-family: Arial, Helvetica, sans-serif;">${element}<p></div>`
+                  }).join('')}
+                  </li>
+                 </ul>
+           </div>
+         <div class="clearfix"></div>
+        </div>
+    `
+        })
+        // console.log(loveStr)
+
+        document.getElementById("LoveID").innerHTML = loveStr;
+      }
+    });
+
+    function ifrm(roo, doo) {
+      console.log(roo, doo)
+      // layer.open({
+      //   type: 1,
+      //   title: "黄码问题词表",
+      //   skin: 'layui-layer-demo', //样式类名
+      //   // closeBtn: 0, //不显示关闭按钮
+      //   anim: 1,
+      //   shade: 0.5,
+      //   time: 100,
+      //   shadeClose: true, //开启遮罩关闭
+      //   area: ['500px', '710px'],
+      //   content: $("#table"),
+
+      // });
+      layer.open({
+        type: 1,
+        title: doo + "词表",
+        closeBtn: 1,
+        offset: ['200px', '30%'],
+
+        shadeClose: true, //开启遮罩关闭
+        area: ['800px', '607px'],
+        // skin: 'yourclass',
+        content: $("#table"),
+      });
+      $(window).trigger('resize');
+      //第一个实例
+      layui.use(['tree', 'form', 'laydate', 'table', 'layer', 'laypage', 'util'], function () {
+
+        var $ = layui.$,
+          table = layui.table,
+          layer = layui.layer,
+          laydate = layui.laydate;
+        var laypage = layui.laypage;
+        var util = layui.util;
+        var table = layui.table;
+        $(window).trigger('resize');
+        table.render({
+          elem: '#demo',
+          height: 433,
+          id: 'test',
+          url: basepath + '/PublicOpinion/Lexicon/wordSearch' //数据接口
+            ,
+
+          page: true, //开启分页
+
+          where: {
+            // userId:userId,
+            superclass: roo,
+            subclass: doo
+          }, //如果无需传递额外参数，可不加该参数http-server
+          cols: [
+            [{
+              title: '序号',
+              align: 'center',
+              type: 'numbers',
+              width: 80
+            }, {
+              field: 'word',
+              title: '涉及词汇',
+              width: 387,
+              align: 'center',
+              event: 'setSign',
+              style: 'cursor: pointer;',
+              edit: 'text'
+            }, {
+              title: '操作',
+              field: 'docName',
+              align: 'center',
+              width: 305,
+              toolbar: "#barDemo"
+            }]
+          ],
+          done: function (res, curr, count) {
+
+            $('th').css({
+              'background-color': '#172877',
+              'color': '#fff',
+              'font-weight': 'bold'
+            })
+          },
+          parseData: function (res) { //res 即为原始返回的数据
+
+            return {
+              "code": res.status, //解析接口状态
+              "msg": res.message, //解析提示文本
+              "count": res.totalCount, //解析数据长度
+              "data": res.list //解析数据列表
+            };
+          },
+          request: {
+            pageName: 'pageNo' //页码的参数名称，默认：page
+              ,
+            limitName: 'pageSize' //每页数据量的参数名，默认：limit
+          }
+
+        });
+
+        $('#subit').click(function () {
+          var inputVal = $('#input').val()
+          table.reload('test', {
+            url: basepath + '/PublicOpinion/Lexicon/Search'
+              // ,methods:"post"
+              ,
+            request: {
+              pageName: 'pageNo' //页码的参数名称，默认：page
+                ,
+              limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            where: {
+              word: inputVal
+            },
+            page: {
+              curr: 1
+            }
+          });
+        })
+        //监听表格复选框选择
+        table.on('checkbox(demo)', function (obj) {
+          console.log(obj);
+        });
+
+        //监听工具条
+        table.on('tool(demo)', function (obj) {
+          // console.log(obj)
+          var data = obj.data;
+          console.log(data)
+          var id = obj.data.id
+          if (obj.event === 'setSign') {
+            layer.prompt({
+              formType: 2,
+              title: '修改  [' + data.word + '] 词汇为：',
+              value: data.word
+            }, function (value, index) {
+              layer.close(index);
+              console.log(value)
+              //这里一般是发送修改的Ajax请求
+              $.ajax({
+                type: "post",
+                url: basepath + "/PublicOpinion/Lexicon/update",
+                data: {
+                  id: id,
+                  superclass: roo,
+                  subclass: doo,
+                  word: value
+                },
+                dataType: "json",
+                success: function (response) {
+                  //同步更新表格和缓存对应的值
+                  obj.update({
+                    word: value
+                  });
+                  layer.msg('修改成功', {
+                    icon: 1
+                  });
+
+
+                },
+                error: function () {
+                  layer.msg('修改失败', {
+                    icon: 2
+                  });
+                }
+              });
+
+
+            });
+          }
+
+          $("#sele option:selected").val(data.userType)
+
+          if (obj.event === 'detail') {
+            console.log(data)
+
+            if (data.ext == ".doc") {
+              $.ajax({
+                type: "post",
+                url: basepath + "/search/getDocUri",
+                data: {
+                  id: data.mysqlid
+                },
+                dataType: "json",
+                success: function (res) {
+                  if (res.status != "0") {
+                    layer.msg(res.message);
+                    return;
+                  }
+                  var url = res.data;
+                  // window.open(url);
+                  window.location.href = url
+                }
+              });
+            }
+            if (data.ext == ".pdf") {
+              $.ajax({
+                type: "post",
+                url: basepath + "/search/getPdfUri",
+                data: {
+                  id: data.mysqlid
+                },
+                dataType: "json",
+                success: function (res) {
+                  console.log(res)
+                  if (res.status != "0") {
+                    layer.msg(res.message);
+                    return;
+                  }
+                  var url = res.data
+                  // PDFObject.embed("../保温工程专业分包合同.pdf", "body");
+                  // window.open("./static/pdfjs-2.1.266-dist/web/viewer.html?file=" + res.data);
+
+                  window.location.href = url
+                }
+              });
+            }
+            if (data.ext == ".docx") {
+              $.ajax({
+                type: "post",
+                url: basepath + "/search/getDocUri",
+                data: {
+                  id: data.mysqlid
+                },
+                dataType: "json",
+                success: function (res) {
+                  console.log(res)
+                  if (res.status != "0") {
+                    layer.msg(res.message);
+                    return;
+                  }
+                  var url = res.data;
+                  window.location.href = url
+                }
+              });
+            }
+
+            var id = obj.data.id
+
+            // var url = "../templates/fllow.html?time=" + time + "&uuid=" + uuid;
+            // var url = "./widgets.html?id=" + id
+
+            // window.location.href = url;
+            // window.open("./follow.html?id=" + id);
+
+
+          } else if (obj.event === 'del') {
+            var id = obj.data.id
+            console.log(obj)
+            layer.confirm('确认删除？', {
+
+              btn: ['确定', '取消'],
+              btn1: function (index, layero) {
+                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                layer.close(index);
+                //后台执行删除操作
+                $.post(basepath + '/PublicOpinion/Lexicon/delete', {
+                  'id': id,
+                }, function (data) {
+                  if (data.status == 0) {
+                    layer.msg("删除成功", {
+                      time: 1800,
+                      icon: 1
+                    });
+                    table.reload('test', {
+                      url: basepath + '/PublicOpinion/Lexicon/wordSearch',
+                      where: {} //设定异步数据接口的额外参数
+
+                    })
+                  } else {
+                    layer.msg('删除失败', {
+                      time: 1800,
+                      icon: 2
+                    });
+                  }
+                }, 'json');
+                layer.close(index);
+              },
+              btn2: function (index, layero) {
+                layer.close(index);
+              }
+            });
+          } else if (obj.event === 'edit') {
+            console.log(data)
+            if (data.ext == ".doc") {
+              $.ajax({
+                type: "post",
+                url: basepath + "/search/getDocDirUri",
+                data: {
+                  id: data.mysqlid
+                },
+                dataType: "json",
+                success: function (res) {
+                  console.log(res)
+                  if (res.status != "0") {
+                    layer.msg(res.message);
+                    return;
+                  }
+                  var url = res.data;
+                  window.location.href = url
+                }
+              });
+            }
+            if (data.ext == ".pdf") {
+              $.ajax({
+                type: "post",
+                url: basepath + "/search/getPdfDirUri",
+                data: {
+                  id: data.mysqlid
+                },
+                dataType: "json",
+                success: function (res) {
+                  console.log(res)
+                  if (res.status != "0") {
+                    layer.msg(res.message);
+                    return;
+                  }
+                  var url = res.data;
+                  window.location.href = url
+                }
+              });
+            }
+            if (data.ext == ".docx") {
+              $.ajax({
+                type: "post",
+                url: basepath + "/search/getDocDirUri",
+                data: {
+                  id: data.mysqlid
+                },
+                dataType: "json",
+                success: function (res) {
+                  console.log(res)
+                  if (res.status != "0") {
+                    layer.msg(res.message);
+                    return;
+                  }
+                  var url = res.data;
+                  window.location.href = url
+                }
+              });
+            }
+
+
+          }
+        });
+      })
+
+    }
+  </script>
+</body>
+
+</html>

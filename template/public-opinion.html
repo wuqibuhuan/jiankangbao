@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>舆情报告</title>
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="stylesheet" href="../static/css/herder.css">
+  <link rel="stylesheet" href="../static/layui-v2.5.6/layui/css/layui.css">
+  <!-- <script src="../static/fonts/iconfont.js"></script> -->
+  <link rel="stylesheet" href="../static/font/iconfont.css">
+</head>
+
+<body>
+  <!-- 导航头 -->
+  <script src="../static/js/herder.js"></script>
+
+  <!-- 中间区域 -->
+  <div class="conter">
+    <h1>舆情报告</h1>
+    <!-- 导出报告按钮 -->
+    <div style="float: right; width: 150px; height: 100%;">
+
+      <button class="ppt" id="printall">导出报告</button>
+
+    </div>
+  </div>
+  <div id="bigbox">
+
+
+    <div class="echarts">
+      <!-- <div class="layui-row layui-col-space10">
+      <div class="layui-col-md4">特殊人群分析</div>
+      <div class="layui-col-md6">内容分类</div>
+      <div class="layui-col-md6">年龄分析</div> 
+    </div> -->
+      <div class="layui-row layui-col-space10">
+        <div class="layui-col-xs6">
+          <div class="grid-demo grid-demo-bg1">时刻分布</div>
+        </div>
+        <div class="layui-col-xs6">
+          <div class="grid-demo">分类占比</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="orang">
+      <!-- <div class="layui-row layui-col-space10">
+      <div class="layui-col-md4" id="ech-1"></div>
+      <div class="layui-col-md6" id="ech-2"></div>
+      <div class="layui-col-md6" id="ech-3"></div>
+    </div> -->
+      <div class="layui-row layui-col-space10">
+        <div class="layui-col-xs6">
+          <div class="grid-demo grid-demo-bg1" id="ech-2"></div>
+        </div>
+        <div class="layui-col-xs6">
+          <div class="grid-demo" id="ech-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="echarts">
+      <!-- <div class="layui-row layui-col-space10">
+      <div class="layui-col-md6">热点词云</div>
+      <div class="layui-col-md4">地区分布</div>
+      <div class="layui-col-md6">功能问题热点</div>
+    </div> -->
+      <div class="layui-row layui-col-space10">
+        <div class="layui-col-xs6">
+          <div class="grid-demo grid-demo-bg1">热点词云</div>
+        </div>
+        <div class="layui-col-xs6">
+          <div class="grid-demo">热点问题</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="orang">
+      <!-- <div class="layui-row layui-col-space10">
+      <div class="layui-col-md6" id="ech-4"></div>
+      <div class="layui-col-md4" id="ech-5"></div>
+      <div class="layui-col-md6" id="ech-6"></div>
+    </div> -->
+      <div class="layui-row layui-col-space10">
+        <div class="layui-col-xs6">
+          <div class="grid-demo grid-demo-bg1" id="ech-4"></div>
+        </div>
+        <div class="layui-col-xs6">
+          <div class="grid-demo" id="ech-6"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../static/js/jquery-3.0.0.min.js"></script>
+  <script src="../static/js/basepath.js"></script>
+  <script src="../static/node_modules/echarts/dist/echarts.js"></script>
+  <script src="../static/js/china.js"></script>
+  <script src="../static/js/echarts-wordcloud.js"></script>
+  <script src="../static/js/echarts-too.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script> -->
+  <script>
+    $("#printall").attr("disabled", "disabled"); //禁用按钮
+
+    $("#printall").click(function () {
+      window.location.href = basepath + "/PublicOpinion/Uploader/export"
+    })
+  </script>
+</body>
+
+</html>

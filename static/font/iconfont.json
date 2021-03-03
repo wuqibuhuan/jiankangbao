@@ -1,0 +1,37 @@
+{
+  "id": "2290066",
+  "name": "jkb",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2375878",
+      "name": "导入",
+      "font_class": "daoru",
+      "unicode": "e892",
+      "unicode_decimal": 59538
+    },
+    {
+      "icon_id": "10477406",
+      "name": "报告",
+      "font_class": "baogao",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "15685547",
+      "name": "表单 列表-03 (1)",
+      "font_class": "biaodanliebiao-031",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "16989135",
+      "name": "后台管理",
+      "font_class": "houtaiguanli",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    }
+  ]
+}

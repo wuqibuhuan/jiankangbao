@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据列表</title>
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="stylesheet" href="../static/css/herder.css">
+  <link rel="stylesheet" href="../static/layui-v2.5.6/layui/css/layui.css">
+  <!-- <script src="../static/fonts/iconfont.js"></script> -->
+  <link rel="stylesheet" href="../static/font/iconfont.css">
+</head>
+
+
+<body>
+  <!-- 导航头 -->
+  <script src="../static/js/herder.js"></script>
+
+  <!-- 中间区域 -->
+  <div class="conter">
+    <h1>数据列表</h1>
+    <!-- 搜索框 -->
+    <div class="search bar7">
+
+      <input type="text" placeholder="输入信息" id="input">
+      <button type="submit" id="subit"></button>
+
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <!-- 表格区域 -->
+  <div class="tab-container">
+    <!-- 下拉框 -->
+    <!-- <div class="sel">
+
+      <li>
+
+        <select @change="" class="select" id="">
+          <option>问题类型</option>
+          <option>黄码问题</option>
+          <option>红码问题</option>
+          <option>核酸检测</option>
+          <option>功能问题</option>
+        </select>
+        <select @change="" class="select" id="">
+          <option>所属人群</option>
+          <option>孕妇</option>
+          <option>急病就医</option>
+          <option>老人</option>
+          <option>儿童</option>
+          <option>外籍人士</option>
+          <option>学生</option>
+        </select>
+        <select @change="" class="select" id="">
+          <option>风险标注</option>
+          <option>生僻字</option>
+          <option>关联注册</option>
+          <option>老人</option>
+        </select>
+      </li>
+
+    </div> -->
+    <!-- 表格 -->
+    <!-- 表格 -->
+    <div class="list">
+      <table class="table-striped table-bordered table-hover" id="demo" lay-filter="demo"></table>
+    </div>
+
+
+  </div>
+  <script src="../static/js/jquery-3.0.0.min.js"></script>
+  <script src="../static/js/basepath.js"></script>
+  <script src="../static/layui-v2.5.6/layui/layui.js"></script>
+  <script src="../static/layui-v2.5.6/layui/layui.all.js"></script>
+  <script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="detail">
+      <p>修改</p>
+    </a>
+    <a class="layui-btn layui-btn-xs" lay-event="del">
+      <p>删除</p>
+    </a>
+  </script>
+
+  <script>
+    $(function () {
+      lost();
+    });
+
+    function lost() {
+      layui.use(['table', 'layer', 'laydate', 'laypage', 'util'], function () {
+        var $ = layui.$,
+          table = layui.table,
+          layer = layui.layer,
+          laydate = layui.laydate;
+        var laypage = layui.laypage;
+        var util = layui.util;
+        $.ajaxSetup({
+          xhrFields: {
+            withCredentials: true
+          }
+        });
+        table.render({
+          elem: '#demo',
+          // id: 'testReload',
+          page: {
+            theme: '#ff7f4f',
+          },
+          page: true,
+          id: 'test',
+          // limits: [5, 10, 15], //显示
+          // limit: 15, //每页默认显示的数量
+          where: {
+            // userId:userId,
+
+          } //如果无需传递额外参数，可不加该参数http-server
+          ,
+          url: basepath + '/PublicOpinion/List/default',
+          cols: [
+            [ //表头
+              {
+                type: 'numbers',
+                title: '序号',
+                width: "4%",
+                // sort: true,
+                fixed: 'left'
+              }, {
+                field: 'fknr',
+                title: '内容',
+                align: 'center',
+                width: "25%"
+              }, {
+                field: 'ly',
+                title: '来源',
+                width: "8%",
+                align: 'center'
+              }, {
+                field: 'zjh',
+                title: '证件号',
+                width: "12.5%",
+                align: 'center'
+              }, {
+                field: 'sxfl',
+                title: '反馈类型',
+                width: "10%",
+                align: 'center'
+              }, {
+                field: 'wtlx',
+                title: '属性分类',
+                width: "8%",
+                align: 'center'
+              }, {
+                field: 'gjz',
+                title: '关键字',
+                width: "10%",
+                align: 'center'
+              }, {
+                field: 'fksj',
+                title: '时间',
+                width: "13%",
+                align: 'center'
+              }, {
+                field: 'wealth',
+                title: '操作',
+                width: "10%",
+                align: 'center',
+                toolbar: '#barDemo'
+              }
+            ]
+          ],
+          done: function (res, curr, count) {
+
+            $('th').css({
+              'background-color': '#172877',
+              'color': '#fff',
+              'font-weight': 'bold'
+            })
+          },
+          parseData: function (res) { //res 即为原始返回的数据
+            console.log(res)
+            var data = res.list
+            // var str = JSON.stringify(data);
+            // // var data = eval("(" + res.list + ")");
+            // var str = str.replace('"', " ");
+            // var str = str.replace('"', " ");
+            // console.log(str)
+            return {
+              "code": res.status, //解析接口状态
+              "msg": res.message, //解析提示文本
+              "count": res.totalCount, //解析数据长度
+              "data": res.list //解析数据列表
+            };
+          },
+          request: {
+            pageName: 'pageNo' //页码的参数名称，默认：page
+              ,
+            limitName: 'pageSize' //每页数据量的参数名，默认：limit
+          }
+
+        });
+        $('#subit').click(function () {
+          var inputVal = $('#input').val()
+          table.reload('test', {
+            url: basepath + '/PublicOpinion/List/Search'
+              // ,methods:"post"
+              ,
+            request: {
+              pageName: 'pageNo' //页码的参数名称，默认：page
+                ,
+              limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            where: {
+              text: inputVal
+            },
+            page: {
+              curr: 1
+            }
+          });
+        })
+        //监听表格复选框选择
+        table.on('checkbox(demo)', function (obj) {
+          console.log(obj);
+        });
+
+        //监听工具条
+        table.on('tool(demo)', function (obj) {
+          // console.log(obj)
+          var data = obj.data;
+          var id = data.id;
+          var xh = data.xh
+          $("#sele option:selected").val(data.userType)
+
+          if (obj.event === 'detail') {
+            console.log(data.fknr)
+            $("#databaseType").val(data.fknr);
+            // var id = obj.data.id
+            // window.open("./follow.html?id=" + id);
+            // var url = "../templates/fllow.html?time=" + time + "&uuid=" + uuid;
+            // var url = "./widgets.html?id=" + id
+            // window.location.href = url;
+            layer.open({
+              type: 1,
+              title: '详细信息' //不显示标题栏
+                ,
+              closeBtn: false,
+              area: '1000px;',
+              shade: 0.8,
+              btnAlign: 'c',
+              moveType: 1 //拖拽模式，0或者1
+                ,
+              btn: ['提交', '取消'],
+              content: '<div style="padding: 30px; line-height: 40px; background-color: #fff; color: #393D49; font-weight: 300;width:940px;">' +
+                '<table class="table-striped table-bordered table-hover" style="width:900px;text-align: center;">' +
+                //  '<tr ><td style="width: 70px;">类型</td><td style="width: 60px;"><input class="form-control" id="connType"></td></tr>' +
+                '<tr><td style="width: 70px;">来源：</td><td style="width: 60px;"><input class="form-control" id="databaseType"/></td><td style="width: 70px;">反馈内容：</td><td style="width: 60px;"><input class="form-control" id="fknr"/></td></tr>' +
+                '<tr><td style="width: 70px;">证件号：</td><td style="width: 60px;"><input class="form-control"  id="zjh" /></td><td style="width: 70px;">反馈时间：</td><td style="width: 60px;"><input class="form-control"  id= "fksj"/></td></tr>' +
+                '<tr><td style="width: 70px;">问题类型：</td><td style="width: 60px;" > <input  class="form-control"   id="wtlx" /> </td><td style="width: 70px;">属性分类：</td><td style="width: 60px;" > <input  class="form-control"  id= "sxfl" /> </td></tr>' +
+                '<tr ><td style="width: 70px;">关键字：</td><td style="width: 60px;"><input class="form-control"  id="gjz" /></td><td style="width: 70px;">地域信息：</td><td style="width: 60px;"><input class="form-control"  id="dyxx" /></td></tr>' +
+                '<tr><td style="width: 70px;">特殊人群：</td><td style="width: 60px;" > <input  class="form-control"  id="tsrq"  /> </td><td style="width: 70px;">风险预警：</td><td style="width: 60px;" > <input  class="form-control"   id="fxyj" /> </td></tr>' +
+                '<tr><td style="width: 70px;">待定</td><td style="width: 60px;" > <input  class="form-control"   onKeypress = "javascript:if(event.keyCode == 32)event.returnValue = false;" /> </td></tr></table>' +
+                '</div>'
+
+
+                ,
+              yes: function () {
+
+                var ly = $("#databaseType").val();
+                var fknr = $("#fknr").val();
+                var zjh = $("#zjh").val();
+                var fksj = $("#fksj").val();
+                var wtlx = $("#wtlx").val();
+                var sxfl = $("#sxfl").val();
+                var gjz = $("#gjz").val();
+                var fknr = $("#fknr").val();
+                var dyxx = $("#dyxx").val();
+                var tsrq = $("#tsrq").val();
+                var fxyj = $("#fxyj").val();
+
+
+
+
+
+                $.ajax({
+                  type: "post",
+                  url: basepath + '/PublicOpinion/List/update',
+                  // processData: false,
+                  data: {
+                    id: id,
+                    xh: xh,
+                    ly: ly,
+                    fknr: fknr,
+                    zjh: zjh,
+                    fksj: fksj,
+                    wtlx: wtlx,
+                    sxfl: sxfl,
+                    gjz: gjz,
+                    fknr: fknr,
+                    dyxx: dyxx,
+                    tsrq: tsrq,
+                    fxyj: fxyj
+                  },
+                  xhrFields: {
+                    withCredentials: true
+                  },
+                  dataType: "json",
+                  error: function () {
+                    //请求出错
+                    alert("出錯了！");
+                  },
+                  success: function (json) {
+                    console.log(json)
+
+                    //请求成功
+                    if (json.status == 0) {
+                      layer.msg("修改成功", {
+                        icon: 1
+                      }, function () {
+                        window.location.reload();
+                        // table.reload("#demo", options)
+
+
+
+
+                      })
+                    } else {
+                      layer.msg(json.message)
+                    }
+
+
+
+                  }
+                });
+
+              }
+
+
+            });
+
+
+            $("#databaseType").val(data.ly);
+            $("#fknr").val(data.fknr);
+            $("#zjh").val(data.zjh);
+            $("#fksj").val(data.fksj);
+            $("#wtlx").val(data.wtlx);
+            $("#sxfl").val(data.sxfl);
+            $("#gjz").val(data.gjz);
+            $("#fknr").val(data.fknr);
+            $("#dyxx").val(data.dxxx);
+            $("#tsrq").val(data.tsrq);
+            $("#fxyj").val(data.fxyj);
+          } else if (obj.event === 'del') {
+            layer.confirm('确认删除？', {
+              btn: ['确定', '取消'],
+              btn1: function (index, layero) {
+                //后台执行删除操作
+                $.post(basepath + '/PublicOpinion/List/delete', {
+                  'id': obj.data.id
+                }, function (data) {
+                  if (data.status == 0) {
+                    layer.msg("删除成功", {
+                      time: 1800,
+                      icon: 1
+                    });
+                    lost();
+                  } else {
+                    layer.msg('删除失败', {
+                      time: 1800,
+                      icon: 2
+                    });
+                  }
+                }, 'json');
+                layer.close(index);
+              },
+              btn2: function (index, layero) {
+                layer.close(index);
+              }
+            });
+          } else if (obj.event === 'edit') {
+            if (data.status == '已修改' || (data.status == '核查完成' && data.errorCount == '0')) {
+              $.post('/eye/get-down', {
+                'docId': data.id
+              }, function (data, status) {
+                if (data == 'false') {
+                  layer.msg('下载失败', {
+                    time: 1800,
+                    icon: 2
+                  });
+                } else {
+                  data = JSON.parse(data);
+                  window.location.href = basePath + "/eye/down-file/" + data.downkey +
+                    "/" + data.docId;
+                }
+              });
+            } else {
+              layer.msg('此文件不可以下载', {
+                time: 1800,
+                icon: 2
+              });
+            }
+          }
+        });
+
+      });
+    }
+  </script>
+</body>
+
+</html>
